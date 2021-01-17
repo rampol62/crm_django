@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contexto</title>
+    <style>
+        .lead {
+            padding: 10px 10px 6px 6px;
+            margin-top: 10px;
+            background-color: #f6f6f6;
+            width: 100%;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <h1>Lista de Lideres </h1>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat doloribus reprehenderit molestias dignissimos
+        placeat cumque quasi doloremque nisi, libero provident!</p>
+    <!-- <h2>{{name}} tiene una edad de {{age}}</h2>   -->
+    {% for items in lideres%}
+    <div class="lead">
+        <a href="/leads/{{ items.pk }}">{{items.first_name}} {{items.last_name}} {{items.age}}</a>
+    </div>
+    {% endfor%}
+</body>
+
+</html>
