@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <a href="/leads/create/">Crear un Nuevo Lider</a>
+    <a href="{% url 'leads:lead-create' %}">Crear un Nuevo Lider</a>
     <hr> </hr>
     <h1>Lista de Lideres </h1>
     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat doloribus reprehenderit molestias dignissimos
@@ -27,7 +27,7 @@
     <!-- <h2>{{name}} tiene una edad de {{age}}</h2>   -->
     {% for items in lideres%}
     <div class="lead">
-        <a href="/leads/{{ items.pk }}">{{items.first_name}} {{items.last_name}} {{items.age}}</a>
+        <a href="{% url 'leads:lead-detail' items.pk %}">{{items.first_name}} {{items.last_name}} {{items.age}}</a>
     </div>
     {% endfor%}
 </body>

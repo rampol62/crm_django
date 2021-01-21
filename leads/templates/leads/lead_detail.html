@@ -19,14 +19,14 @@
 </head>
 
 <body>
-    <a href="/leads">Regresar a Lista de Lideres</a>
+    <a href="{% url 'leads:lead-list' %}">Regresar a Lista de Lideres</a>
     <hr />
     <h1>Este es el detalle del lider {{ lider.first_name}} {{lider.last_name}} </h1>
     <p>Esta persona tiene una edad de {{lider.age}}</p>
     <p>El Agente Responsable para este lider es {{lider.agent}}</p>
     <hr />
-    <a href="/leads/{{ lider.pk }}/update/">Actualizar</a>
-    <a href="/leads/{{ lider.pk }}/delete/">Borrar</a>
+    <a href="{% url 'leads:lead-update' lider.pk %}">Actualizar</a>
+    <a href="{% url 'leads:lead-delete' lider.pk %}">Borrar</a>
 
 </body>
 

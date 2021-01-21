@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/leads">Regresar a Lideres</a>
+    <a href="{% url 'leads:lead-list' %}">Regresar a Lideres</a>
     <h1>Creacion de un Nuevo Lider</h1>
     <form method = "POST">
         {% csrf_token %}

@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/leads">Regresar a Lideres</a>
+    <a href="{% url 'leads:lead-detail' lider.pk %}">Regresar a {{lider.first_name}} {{lider.last_name}}</a>
     <h1>Modificacion Lider {{lider.first_name}}   {{lider.last_name}}   </h1>
     <form method = "POST">
         {% csrf_token %}
