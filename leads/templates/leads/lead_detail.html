@@ -1,24 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contexto</title>
-    <style>
-        .lead {
-            padding: 10px 10px 6px 6px;
-            margin-top: 10px;
-            background-color: #f6f6f6;
-            width: 100%;
-        }
-    </style>
-
-
-
-</head>
-
-<body>
+{% extends "base.html" %}
+{% block content %}
     <a href="{% url 'leads:lead-list' %}">Regresar a Lista de Lideres</a>
     <hr />
     <h1>Este es el detalle del lider {{ lider.first_name}} {{lider.last_name}} </h1>
@@ -27,7 +8,4 @@
     <hr />
     <a href="{% url 'leads:lead-update' lider.pk %}">Actualizar</a>
     <a href="{% url 'leads:lead-delete' lider.pk %}">Borrar</a>
-
-</body>
-
-</html>
+{% endblock content %}
