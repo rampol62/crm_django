@@ -1,12 +1,33 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
+from django.views import generic
 from .models import Lead, Agent
-from .forms import LeadForm, LeadModelForm
+from .forms import LeadForm, LeadModelForm, CustomUserCreationform
 
 # Create your views here.
+
+class SignupView(generic.CreateView):
+    template_name = "registration/signup.html"
+    form_class = CustomUserCreationform
+
+    def get_success_url(self):
+        return reverse("login")
+
+
+
+class LandingPageView(generic.TemplateView):
+    template_name = "landing.html"
+
+
 def landing_page(request):
     return render(request, "landing.html")
 
+
+class LeadListView(generic.ListView):
+    template_name = "leads/lead_list.html"
+    queryset = Lead.objects.all()
+    context_object_name = "lideres"
 
 
 def lead_list(request):
@@ -21,6 +42,12 @@ def lead_list(request):
     return render(request, "leads/lead_list.html", contexto01)
 
 
+class LeadDetailView(generic.DetailView):
+    template_name = "leads/lead_detail.html"
+    queryset = Lead.objects.all()
+    context_object_name = "lider"   
+
+
 def lead_detail(request, pk):
     print(pk)
     lider = Lead.objects.get(id=pk)
@@ -30,34 +57,57 @@ def lead_detail(request, pk):
     }
     return render(request, "leads/lead_detail.html", contexto)
 
+class LeadCreateView(generic.CreateView):
+    template_name = "leads/lead_create.html"
+    form_class = LeadModelForm
+
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
 
 def lead_create(request):
     # print(request.POST)
-    forma = LeadModelForm()
+    form = LeadModelForm()
     if request.method == "POST":
-        forma = LeadModelForm(request.POST)
-        if forma.is_valid():
-            forma.save()
+        form = LeadModelForm(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect("/leads")
     contexto = {
-        "forma": forma
+        "form": form
     }
     return render(request, "leads/lead_create.html", contexto)
 
 
+class LeadUpdateView(generic.UpdateView):
+    template_name = "leads/lead_update.html"
+    queryset = Lead.objects.all()
+    form_class = LeadModelForm
+    context_object_name = "lider" 
+
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
 def lead_update(request, pk):
     lider = Lead.objects.get(id=pk)
-    forma = LeadModelForm(instance=lider)
+    form = LeadModelForm(instance=lider)
     if request.method == "POST":
-        forma = LeadModelForm(request.POST, instance=lider)
-        if forma.is_valid():
-            forma.save()
+        form = LeadModelForm(request.POST, instance=lider)
+        if form.is_valid():
+            form.save()
             return redirect("/leads")
     contexto = {
-        "forma": forma,
+        "form": form,
         "lider": lider
     }
     return render(request, "leads/lead_update.html", contexto)
+
+class LeadDeleteView(generic.DeleteView):
+    template_name = "leads/lead_delete.html"
+    queryset = Lead.objects.all()
+
+    def get_success_url(self):
+        return reverse("leads:lead-list")
 
 
 def lead_delete(request, pk):

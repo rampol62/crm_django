@@ -20,7 +20,7 @@
                 </div>
                 <form method="POST">
                     {% csrf_token %}
-                    {{ forma.as_p }}
+                    {{ form.as_p }}
                     <button type="submit">Aceptar </button>
                 </form>
                 <a href="{% url 'leads:lead-delete' lider.pk %}"
